@@ -32,7 +32,9 @@ export class CreateCardComponent implements OnInit {
     this.card.number = parseInt(this.model.number);
     // @ts-ignore
     this.card.cvv = parseInt(this.model.cvv);
-    this.card.expiration = this.model.expiration;
+    let month = this.model.expiration?.substring(0,2);
+    let year = this.model.expiration?.substring(3,5);
+    this.card.expiration = month + '_20' + year;
     this.cardService.createCard(this.card).subscribe({
       next: value => {
         console.log('Created', value);
