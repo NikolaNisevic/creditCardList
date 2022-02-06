@@ -1,0 +1,32 @@
+<div class="text-center pt-5">
+  <button *ngIf="isLoggedIn() && !error" class="btn btn-primary" (click)="addCard()">Add Card</button>
+</div>
+<div *ngIf="error" class="alert alert-danger" role="alert">
+  {{error}}. Try to login again!
+</div>
+<div *ngIf="cards.length !== 0 && !error" class="justify-content-center p-5">
+  <table class="table table-hover table-dark">
+    <thead>
+    <tr class="m-2 pt-5">
+      <th scope="col">Owner</th>
+      <th scope="col">Number</th>
+      <th scope="col">CVV</th>
+      <th scope="col">Expiration</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let c of cards | paginate: {itemsPerPage: count, currentPage: p}">
+      <td>{{c.owner}}</td>
+      <td>{{c.number}}</td>
+      <td>{{c.cvv}}</td>
+      <td>{{c.expiration}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <div *ngIf="cards.length !== 0" class="text-center">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+</div>
+
+
+
